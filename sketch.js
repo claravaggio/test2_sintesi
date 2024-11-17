@@ -12,7 +12,7 @@ let gameOver = false;
 let maxRadius = 250; // Massima dimensione del cerchio bianco
 let innerRadius; // Raggio del cerchio interno
 let donutRadius; // Raggio della ciambella verde
-let donutShrinkSpeed = 0.3; // Velocità di riduzione del raggio della ciambella verde
+let donutShrinkSpeed = 0.2; // Velocità di riduzione del raggio della ciambella verde
 
 let radiusCircleUnder = 60; // Raggio di base del cerchio bianco
 
@@ -31,6 +31,7 @@ function setup() {
 function draw() {
   if (gameOver) {
     // Schermata di Game Over
+    noStroke();
     fill(255, 0, 0);
     textAlign(CENTER, CENTER);
     textSize(100);
@@ -100,14 +101,6 @@ function draw() {
     donutRadius = max(donutRadius, 0); // Non lasciare che diventi negativa
   }
 
-  // Disegna la ciambella verde come stroke se il suo raggio è maggiore di 0
-  if (donutRadius > 0) {
-    stroke(130, 255, 134, 80);
-    strokeWeight(30);
-    noFill();
-    ellipse(width / 2, height / 2, donutRadius * 2, donutRadius * 2);
-  }
-
   // Disegna il cerchio bianco con fill
   fill(255);
   noStroke();
@@ -118,6 +111,14 @@ function draw() {
   strokeWeight(2);
   noFill();
   ellipse(width / 2, height / 2, maxRadius * 2, maxRadius * 2);
+
+  // Disegna la ciambella verde come stroke se il suo raggio è maggiore di 0
+  if (donutRadius > 70 && counter > 0) {
+    stroke(130, 255, 134, 80);
+    strokeWeight(40);
+    noFill();
+    ellipse(width / 2, height / 2, donutRadius * 2, donutRadius * 2);
+  }
 
   // Verifica collisione tra auto1 e auto2
   if (auto1X + img1.width / 8 > auto2X) {
